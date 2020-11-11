@@ -1,6 +1,7 @@
 package test;
 // comments are gay
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class ArrayListMultipleTypes<E> {
 	
@@ -40,10 +41,31 @@ public class ArrayListMultipleTypes<E> {
 		} else if (list.get(index) instanceof Double || list.get(index) instanceof Float) {
 			Double num = (Double) list.get(index);
 			return (E) num;
+			
 		} else if (list.get(index) instanceof Book) {
 			Book num = (Book) list.get(index);
 			return (E) num;
-		} 
+			
+		} else if (list.get(index) instanceof String[]) {
+			String[] array = (String[]) list.get(index);
+			return (E) array;
+			
+		} else if (list.get(index) instanceof int[]) {
+			int[] array = (int[]) list.get(index);
+			return (E) array;
+			
+		} else if (list.get(index) instanceof Character[] || list.get(index) instanceof char[]) {
+			Character[] array = (Character[]) list.get(index);
+			return (E) array;
+			
+		} else if (list.get(index) instanceof Double[]) {
+			Double[] array = (Double[]) list.get(index);
+			return (E) array;
+			
+		} else if (list.get(index) instanceof ArrayListMultipleTypes) {
+			ArrayListMultipleTypes array = (ArrayListMultipleTypes) list.get(index);
+			return (E) array;
+		}
 		return null;
 	}
 	
@@ -67,8 +89,27 @@ public class ArrayListMultipleTypes<E> {
 	public String toString() {
 		String str = "[";
 		for (int i = 0; i < size; i++) {
-			String element = checkAndGet(i).toString();
-			str += element + ", ";
+			Object element = checkAndGet(i);
+			if (element instanceof String[]) {
+				String arrStr = Arrays.toString((String[]) element);
+				str += arrStr + ", ";
+				
+			} else if(element instanceof int[] ) {
+				String arrStr = Arrays.toString((int[]) element);
+				str += arrStr + ", ";
+				
+			} else if(element instanceof Character[] ) {
+				String arrStr = Arrays.toString((Character[]) element);
+				str += arrStr + ", ";
+				
+			} else if(element instanceof Double[] ) {
+				String arrStr = Arrays.toString((Double[]) element);
+				str += arrStr + ", ";
+				
+			} else {
+				str += element.toString() + ", ";
+			}
+			
 		}
 		if (str.equals("[")) {
 			str += "]";
